@@ -28,22 +28,22 @@ function startServer() {
     });
 }
 startServer();
-// uploading file through multer 
-app.post('/upload', multer_config_1.upload.single('excelFile'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded');
-    }
-    let xlsx = require("xlsx");
-    const workbook = xlsx.readFile(req.file.path);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const jsonData = xlsx.utils.sheet_to_json(sheet);
-    const jsonFilename = req.file.filename.replace(/\.[^/.]+$/, ".json");
-    const jsonFilePath = `./uploads/${jsonFilename}`;
-    fs_1.default.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 2));
-    fs_1.default.unlinkSync(req.file.path);
-    res.send('File uploaded successfully');
-});
+// // uploading file through multer 
+// app.post('/upload', upload.single('excelFile'), (req, res) => {
+//     if (!req.file) {
+//         return res.status(400).send('No file uploaded');
+//       }
+//       let xlsx = require("xlsx")
+//       const workbook = xlsx.readFile(req.file.path);
+//       const sheetName = workbook.SheetNames[0];
+//       const sheet = workbook.Sheets[sheetName];
+//       const jsonData = xlsx.utils.sheet_to_json(sheet);
+//       const jsonFilename = req.file.filename.replace(/\.[^/.]+$/, ".json");
+//       const jsonFilePath = `./uploads/${jsonFilename}`;
+//       fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 2));
+//       fs.unlinkSync(req.file.path);
+//     res.send('File uploaded successfully');
+// });
 // chunk size data reading 
 app.post('/upload/chunk', multer_config_1.upload.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
